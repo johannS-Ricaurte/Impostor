@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EL IMPOSTOR</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <div id="screen-home" class="screen active">
+            <h1>EL IMPOSTOR</h1>
+            <p class="subtitle">Juego Social de Deducción</p>
+            
+            <div class="form-group">
+                <input type="text" id="input-name" placeholder="Tu Nombre / Apodo" maxlength="12">
+            </div>
+
+            <div class="form-group">
+                <button id="btn-create-room" class="btn primary">Crear Sala</button>
+            </div>
+
+            <div class="divider">ó</div>
+
+            <div class="form-group">
+                <input type="text" id="input-room-code" placeholder="Código de Sala (ej. ABC123)" style="text-transform:uppercase">
+                <button id="btn-join-room" class="btn secondary">Unirse a Sala</button>
+            </div>
+            
+            <p id="home-error" class="error-text"></p>
+        </div>
+
+        <div id="screen-lobby" class="screen">
+            <h2>SALA: <span id="lobby-code-display">------</span></h2>
+            
+            <div class="card">
+                <h3>Jugadores Conectados</h3>
+                <ul id="player-list" class="player-list"></ul>
+            </div>
+
+            <div id="host-controls" class="card host-only hidden">
+                <h3>Configuración de Partida</h3>
+                <label>Categoría:</label>
+                <select id="select-category">
+                    <option value="Aleatoria">Aleatoria</option>
+                    <option value="Animales">Animales</option>
+                    <option value="Comida">Comida</option>
+                    <option value="Lugares">Lugares</option>
+                </select>
+
+                <label>Número de Impostores:</label>
+                <select id="select-impostors">
+                    <option value="0">Automático (Según Jugadores)</option>
+                    <option value="1">1 Impostor</option>
+                    <option value="2">2 Impostores</option>
+                    <option value="3">3 Impostores</option>
+                </select>
+
+                <button id="btn-start-game" class="btn primary">INICIAR PARTIDA</button>
+            </div>
+
+            <div id="guest-msg" class="info-text card">
+                Esperando a que el anfitrión inicie la partida...
+            </div>
+        </div>
+
+        <div id="screen-role" class="screen">
+            <div class="timer-box">Tiempo: <span id="timer-role">--</span>s</div>
+            
+            <div id="role-box-normal" class="card role-card hidden">
+                <h2 class="text-green">ERES JUGADOR NORMAL</h2>
+                <p>La palabra secreta es:</p>
+                <div id="display-word" class="word-reveal">------</div>
+                <p class="small">Da una pista sutil para demostrar que la conoces sin revelársela al impostor.</p>
+            </div>
+
+            <div id="role-box-impostor" class="card role-card impostor hidden">
+                <h2 class="text-red">ERES EL IMPOSTOR</h2>
+                <p>No conoces la palabra secreta.</p>
+                <p>Escucha con atención las pistas de los demás e intenta pasar desapercibido.</p>
+            </div>
+        </div>
+
+        <div id="screen-clues" class="screen">
+            <div class="timer-box">Tiempo: <span id="timer-clues">--</span>s</div>
+            <h2>Fase de Pistas</h2>
+
+            <div class="card">
+                <p>Turno actual de: <strong id="current-turn-name">---</strong></p>
+            </div>
+
+            <div id="my-clue-form" class="card hidden">
+                <h3>¡Es tu turno de dar una pista!</h3>
+                <input type="text" id="input-clue" placeholder="Escribe tu pista corta..." maxlength="30">
+                <button id="btn-send-clue" class="btn primary">Enviar Pista</button>
+            </div>
+
+            <div class="card">
+                <h3>Pistas Dadas</h3>
+                <ul id="clues-list" class="clues-list"></ul>
+            </div>
+        </div>
+
+        <div id="screen-voting" class="screen">
+            <div class="timer-box">Tiempo: <span id="timer-voting">--</span>s</div>
+            <h2>Votación</h2>
+            <p id="voting-subtitle">Elige a quien creas que es el impostor</p>
+
+            <div id="voting-candidates" class="voting-grid"></div>
+            
+            <p id="vote-status-msg" class="info-text"></p>
+        </div>
+
+        <div id="screen-results" class="screen">
+            <h1 id="winner-title">---</h1>
+            
+            <div class="card">
+                <p>La palabra secreta era: <strong id="final-word">---</strong></p>
+            </div>
+
+            <div class="card">
+                <h3>Revelación de Roles</h3>
+                <ul id="final-roles-list" class="player-list"></ul>
+            </div>
+
+            <div class="card">
+                <h3>Resultados de la Votación</h3>
+                <ul id="final-votes-list" class="clues-list"></ul>
+            </div>
+
+            <button id="btn-new-round" class="btn primary host-only hidden">NUEVA RONDA</button>
+            <p id="guest-results-msg" class="info-text">Esperando al anfitrión para otra ronda...</p>
+        </div>
+
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
